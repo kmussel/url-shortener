@@ -1,0 +1,58 @@
+version: '3.6'
+services:
+  db:
+    image: postgres
+    volumes:
+      - pgdata:/var/lib/postgresql/data:cached
+    environment:
+      POSTGRES_USER: ${PG_USERNAME:-postgres}
+      POSTGRES_PASSWORD: ${PG_PASSWORD:-postgres}
+      PGPASSWORD: ${PG_PASSWORD:-postgres}
+      POSTGRES_DATABASE: ${PG_DATABASE:-urlshortener}
+    ports:
+      - "5432:5432"
+  web:
+    build: 
+      context: .
+      target: final-dev
+      args:
+          TARGET_ENV: dev
+          UI_IMAGE: assets
+          RAILS_ENV: development
+    # command: "ls -al /var/www/testd/tmp"
+    # command: /bin/sh -c "while sleep 1000; do :; done"
+    # command: "rails s -b 0.0.0.0 -p 8080"
+    volumes:
+      - "${HOST_PATH:-.}:/var/www/urlshortener"
+    ports:
+      - "8080:8080"
+    environment:
+      RAILS_ENV: ${RAILS_ENV:-development}
+      PG_HOST: db
+      PG_USERNAME: ${PG_USERNAME:-postgres}
+      PG_PASSWORD: ${PG_PASSWORD:-postgres}
+      PG_DATABASE: ${PG_DATABASE:-urlshortener}
+      RAILS_LOG_TO_STDOUT: "true"
+    depends_on:
+      - db
+
+  prodweb:
+    image: localhost/urlshortener:latest
+    ports:
+      - "8080:8080"
+    environment:
+      RAILS_ENV: production
+      PG_HOST: db
+      PG_USERNAME: ${PG_USERNAME:-postgres}
+      PG_PASSWORD: ${PG_PASSWORD:-postgres}
+      PG_DATABASE: ${PG_DATABASE:-urlshortener}
+      RAILS_SERVE_STATIC_FILES: "true"
+    depends_on:
+      - db
+
+      # IMAGE=localhost/urlshortener DOCKER_BUILDKIT=1 docker build -f Dockerfile --build-arg TARGET_ENV=dev --target final-dev .
+      # DOCKER_BUILDKIT=1 docker build -f Dockerfile --cache-from ${ASSET_CACHE} --cache-from ${IMAGE_LATEST} \
+      #     -t ${IMAGE} -t ${IMAGE_LATEST} --target final 
+
+volumes: 
+  pgdata:

@@ -1,0 +1,49 @@
+//
+//  application.scss
+//  pluck
+// 
+//  Created by Wess Cope (wess@frenzylabs.com) on 04/22/20
+//  Copyright 2020 FrenzyLabs LLC.
+//
+
+@import "bulma/bulma";
+// @import "mixins";
+
+html, body { 
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin:0;
+  padding:0;
+  background: #f7f7f7;
+  font-family: 'Nexa';
+}
+
+.modal .modal-content {
+  width: auto;
+  max-width: 85vw;
+  flex-grow: 0;
+}
+
+.spinner {
+  padding: 20px;
+
+  &.is-loading {
+      position: relative;
+      pointer-events: none;
+      height: 100%;
+      &:after {
+          @include loader;
+          position: absolute;
+          top: calc(50% - 1em);
+          left: calc(50% - 1em);
+          width: 2em;
+          height: 2em;
+          border-width: 0.25em;
+      }
+  }
+}

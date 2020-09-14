@@ -1,0 +1,9 @@
+docker-compose.yaml
+*dockerfile*
+README.md
+.envrc
+.local
+.github
+node_modules
+.bundle
+tmp

@@ -1,0 +1,30 @@
+version: '3'
+services:
+  urlshortener:
+    container_name: urlshortener-devcontainer
+    build:
+      context: ../
+      dockerfile: .devcontainer/Dockerfile
+    image: "localhost/urlshortener-devcontainer:latest"
+    volumes:
+      # Mount the root folder that contains .git
+      - ../:/root/urlshortener
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - ${HOME}/.kube:/root/.kube
+      - ${HOME}/.ssh:/root/.ssh
+      - ${HOME}/.gnupg:/root/.gnupg
+      - ${HOME}/.config:/root/.config
+      - urlshortener-bashhistory:/commandhistory
+    command: /bin/sh -c "while sleep 1000; do :; done"
+    environment:
+      CODE_PATH: ${HOST_TADA}
+      HOST_PATH: ${HOST_PATH}
+      RAILS_ENV: ${RAILS_ENV:-development}
+      PG_HOST: host.docker.internal
+      PG_USERNAME: ${PG_USERNAME:-postgres}
+      PG_PASSWORD: ${PG_PASSWORD:-postgres}
+      PG_DATABASE: ${PG_DATABASE:-urlshortener}
+
+
+volumes: 
+  urlshortener-bashhistory:

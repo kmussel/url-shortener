@@ -1,0 +1,26 @@
+// For format details, see https://aka.ms/vscode-remote/devcontainer.json or this file's README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.117.1/containers/kubernetes-helm
+{
+	"name": "Urlshortener",
+	// "initializeCommand": "echo \"export HOST_PATH=$(pwd)\" > .envrc ",
+	"initializeCommand": "grep -qxF 'include \"export HOST_PATH\"' .envrc || echo \"export HOST_PATH=$(pwd)\" >> .envrc",
+	// sed -i -E "s/^(export HOST_PATH=)(tag:.*$)/\1tag: ${TAG}/g" layerkeep-infra/charts/nicebuild/values.${TARGET}.yam
+	"dockerComposeFile": ["./docker-compose.yml"],
+	"service": "urlshortener",
+	// "shutdownAction": "none",
+
+	// Open the sub-folder with the source code
+	"workspaceFolder": "/root/urlshortener/",
+	"localWorkspaceFolder": "../",
+
+	"settings": { 
+		"terminal.integrated.shell.linux": "/bin/zsh"
+	},
+
+	// "forwardPorts": [8080],
+
+	"postCreateCommand": "cd /root/urlshortener && direnv allow",
+
+	"runArgs": ["--network=host", "--privileged"]
+
+}

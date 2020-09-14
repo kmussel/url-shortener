@@ -1,0 +1,16 @@
+Well first off I'm not a graphic designer so try not to judge me to harshly on the looks :)
+
+I used Ruby on Rails with React and Postgres. 
+
+I set it up as an API with the front-end as a consumer.  If it was a high traffic site then all 
+the static assets could be served separately (like from an S3 bucket).
+
+I used Postgres simply because it was quick to setup but a NoSQL database like Dynamodb would be a good solution
+here since the data is key/value pairs. 
+
+I setup Github Actions for CI/CD.  The CD part is just mocked but it will build the docker image, lint and run tests.
+
+The initial testing is setup for both javascript and rails.  
+
+The README contains the setup instructions. 
+
