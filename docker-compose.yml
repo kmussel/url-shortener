@@ -19,9 +19,6 @@ services:
           TARGET_ENV: dev
           UI_IMAGE: assets
           RAILS_ENV: development
-    # command: "ls -al /var/www/testd/tmp"
-    # command: /bin/sh -c "while sleep 1000; do :; done"
-    # command: "rails s -b 0.0.0.0 -p 8080"
     volumes:
       - "${HOST_PATH:-.}:/var/www/urlshortener"
     ports:

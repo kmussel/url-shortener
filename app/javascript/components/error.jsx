@@ -1,9 +1,8 @@
 /*
  *  error.js
- *  LayerKeep
  *
- *  Created by Wess Cope (me@wess.io) on 06/13/19
- *  Copyright 2018 WessCope
+ *  Created by Kevin Musselman (kmussel@gmail.com) on 09/13/20
+ *  Copyright 2018 Kevin Musselman
  */
 
 import React from 'react'
